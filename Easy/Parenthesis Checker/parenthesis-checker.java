@@ -37,47 +37,32 @@ class Solution
     //Function to check if brackets are balanced or not.
     static boolean ispar(String x)
     {
-        ArrayList<Integer> ropen = new ArrayList<>();
-        ArrayList<Integer> copen = new ArrayList<>();
-        ArrayList<Integer> sopen = new ArrayList<>();
-        int rc = -1, sc = -1, cc = -1;
+        Stack<Character> st = new Stack<>();
         for(int i = 0; i < x.length(); i++)
         {
-            switch(x.charAt(i))
+            char temp = x.charAt(i);
+            switch(temp)
             {
-                case '(': ropen.add(i);
-                          rc++;
-                        break;
-                case ')': if(rc == -1)
-                            return false;
-                    if(i % 2 == ropen.remove(rc) % 2)
-                            return false;
-                            rc--;
-                    break;
-                case '{': copen.add(i);
-                          cc++;
-                    break;
-                case '}': if(cc == -1)
-                            return false;
-                            if(i % 2 == copen.remove(cc) % 2)
-                            return false;
-                            cc--;
-                    break;
-                case '[': sopen.add(i);
-                          sc++;
-                    break;
-                case ']':   if(sc == -1)
+                case ')':   if(st.size() == 0)
                                 return false;
-                            if(i % 2 == sopen.remove(sc) % 2)
-                            return false;
-                            sc--;
-                    break;
+                            if(st.pop() != '(')
+                                return false;
+                                break;
+                case '}':   if(st.size() == 0)
+                                return false;
+                            if(st.pop() != '{')
+                                return false;
+                                break;
+                case ']':   if(st.size() == 0)
+                                return false;
+                            if(st.pop() != '[')
+                                return false;
+                                break;
+                default: st.push(temp);
             }
         }
-        if(rc > -1 || cc > -1 || sc > -1)
-        {
-            return false;   
-        }
+        if(st.size() > 0)
+            return false;
         return true;
     }
 }
