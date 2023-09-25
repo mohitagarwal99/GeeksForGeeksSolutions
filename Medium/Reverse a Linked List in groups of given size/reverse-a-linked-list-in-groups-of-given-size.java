@@ -80,54 +80,29 @@ class Node
 
 class Solution
 {
-    static Node th=null;
-    static Node tt=null;
-    public static void addFirst(Node curr){
-        if(th==null){
-            th=curr;
-            tt=curr;
-        }
-        else{
-            curr.next=th;
-            th=curr;
-        }
-    }
-    public static int length(Node curr){
-        int length=0;
-        while(curr!=null){
-            curr=curr.next;
-            length++;
-        }
-        return length;
-    }
+    static Node next;
     public static Node reverse(Node node, int k)
     {
-        //Your code here
-        int len=length(node);
-        Node oh=null;
-        Node ot=null;
-        Node curr=node;
-        while(len>0){
-            for(int i=0;curr!=null && i<k;i++){
-               Node forw=curr.next;
-                curr.next=null;
-                addFirst(curr);
-                curr=forw;
-                len--;
-            }
-            if(oh==null){
-                oh=th;
-                ot=tt;
-            }
-            else{
-             ot.next=th;
-             ot=tt;
-            }
-            th=null;
-            tt=null;
+        Node head = reverse(null, node, 0, k);
+        while(next != null){
+            Node temp = next;
+            node.next = reverse(null, next, 0, k);
+            node = temp;
+       }
+       return head;
+       
+    }
+    static Node reverse(Node prev, Node curr, int i, int k)
+    {
+        if(i == k || curr == null)
+        {
+            return prev;
         }
-         return oh;
+
+        next = curr.next;
+        curr.next = prev;
+        return reverse(curr, next, i+1, k);
+        
     }
 }
 
- 
