@@ -39,20 +39,58 @@ class Solution
     
     ArrayList<Integer> search(String pat, String txt)
     {
+        int patm[] = new int[pat.length()];
+        int j = 0;
         ArrayList<Integer> al = new ArrayList<>();
-        int i = 0;
+        int i = 1;
+        while(i < pat.length()){
+            if(pat.charAt(i) == pat.charAt(j))
+            {
+                patm[i] = ++j;
+                // System.out.println(patm[i]);
+                i++;
+            }
+            else
+            {
+                if(j != 0)
+                {
+                    j = patm[j-1];
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            
+        }
         
-        while(true){
-            int idx = txt.indexOf(pat, i);
-            if(idx==-1){
-                break;
-            }else{
-                al.add(idx+1);
-                i=idx+1;
+        i = 0;
+        j = 0;
+        while(i < txt.length())
+        {
+            if(pat.charAt(j) == txt.charAt(i))
+            {
+                j++;
+                i++;
+            }
+            else
+            {
+                if(j != 0){
+                    j = patm[j-1];
+                }
+                else{
+                    i++;
+                }
+
+            }
+            if(j == pat.length())
+            {
+                al.add(i-pat.length()+1);
+                j = patm[j-1];
             }
         }
         
-        if(al.size()==0)al.add(-1);
+       
         return al;
     }
 }
