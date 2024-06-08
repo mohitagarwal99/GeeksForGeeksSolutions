@@ -22,7 +22,8 @@ class ExtraElement {
 /*Complete the function below*/
 class Solution {
     public int findExtra(int n, int arr1[], int arr2[]) {
-        // add code here.
+       //Solve it as binary search.
+       //Time complexity will be log n.
         
         int left = 0, right = n -1;
         while(left < right){
