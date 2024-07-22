@@ -130,50 +130,64 @@ class Tree
       if(root == null){
           return al;
       }
-      al.add(root.data);
-      recursionLeft(root.left, al);
-      recursionRight(root.right, al, 2);
-      
+    //   al.add(root.data);
+    //   recursionLeft(root.left, al);
+    //   recursionRight(root.right, al, 2);
+      recursionLeft(root, 0, al);
       
       return al;
     }
-    void recursionLeft(Node root, ArrayList<Integer> al){
-        if(root == null){
+    
+    private void recursionLeft(Node root, int level, ArrayList<Integer> res) {
+        if (root == null) {
             return;
         }
-        al.add(root.data);
-        while(root.left != null || root.right != null){
-          if(root.left != null){
-              al.add(root.left.data);
-              root = root.left;
-          }
-          else {
-              al.add(root.right.data);
-              root = root.right;
-          }
-      }
+
+        if (res.size() == level) {
+            res.add(root.data);
+        }
+
+        recursionLeft(root.left, level + 1, res);
+        recursionLeft(root.right, level + 1, res);
     }
-    void recursionRight(Node root, ArrayList<Integer> al, int level){
-        if(root == null){
-            return;
-        }
-        if(level > al.size()){
+    
+    // void recursionLeft(Node root, ArrayList<Integer> al){
+    //     if(root == null){
+    //         return;
+    //     }
+    //     al.add(root.data);
+    //     while(root.left != null || root.right != null){
+    //       if(root.left != null){
+    //           al.add(root.left.data);
+    //           root = root.left;
+    //       }
+    //       else {
+    //           al.add(root.right.data);
+    //           root = root.right;
+    //       }
+    //   }
+    // }
+    // void recursionRight(Node root, ArrayList<Integer> al, int level){
+    //     if(root == null){
+    //         return;
+    //     }
+    //     if(level > al.size()){
             
-            al.add(root.data);
-        }
-        level++;
-        while(root.left != null || root.right != null){
-          if(root.left != null){
-              if(level > al.size())
-                al.add(root.left.data);
-              root = root.left;
-          }
-          else {
-              if(level > al.size())
-                al.add(root.right.data);
-              root = root.right;
-          }
-          level++;
-      }
-    }
+    //         al.add(root.data);
+    //     }
+    //     level++;
+    //     while(root.left != null || root.right != null){
+    //       if(root.left != null){
+    //           if(level > al.size())
+    //             al.add(root.left.data);
+    //           root = root.left;
+    //       }
+    //       else {
+    //           if(level > al.size())
+    //             al.add(root.right.data);
+    //           root = root.right;
+    //       }
+    //       level++;
+    //   }
+    // }
 }
